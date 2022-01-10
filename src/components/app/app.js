@@ -13,6 +13,7 @@ class App extends Component {
     this.state = {
       data: [],
     };
+    this.maxId = 4;
   }
 
   deleteItem = (id) => {
@@ -28,6 +29,7 @@ class App extends Component {
       name,
       price,
       discount: false,
+      bought: false,
       id: this.maxId++,
     };
     this.setState(({ data }) => {
@@ -37,6 +39,36 @@ class App extends Component {
       };
     });
   };
+
+  toggleDiscount = (id) => {
+    this.setState(({ data }) => {
+      const index = data.findIndex((item) => item.id === id);
+
+      const old = data[index];
+
+      const newObj = { ...old, discount: !old.discount };
+      const newArr = [
+        ...data.slice(0, index),
+        newObj,
+        ...data.slice(index + 1),
+      ];
+      return {
+        data: newArr,
+      };
+    });
+  };
+
+  toggleBought = (id) => {
+    this.setState(({ data }) => ({
+      data: data.map((item) => {
+        if (item.id === id) {
+          return { ...item, bought: !item.bought };
+        }
+        return item;
+      }),
+    }));
+  };
+
   render() {
     return (
       <div className="app">
@@ -47,7 +79,12 @@ class App extends Component {
           <AppFilter />
         </div>
 
-        <ShoppingList data={this.state.data} onDelete={this.deleteItem} />
+        <ShoppingList
+          data={this.state.data}
+          onDelete={this.deleteItem}
+          toggleDiscount={this.toggleDiscount}
+          toggleBought={this.toggleBought}
+        />
         <ShoppingAddForm onItemAdd={this.addItem} />
       </div>
     );
