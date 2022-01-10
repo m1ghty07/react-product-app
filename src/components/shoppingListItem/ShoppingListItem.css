@@ -49,6 +49,9 @@
   transform: translateX(30px);
   opacity: 0;
 }
+.list-group-item.like {
+  background-color: #99dfa8;
+}
 
 .list-group-item.like .fa-check {
   background-color: #10d63b55;

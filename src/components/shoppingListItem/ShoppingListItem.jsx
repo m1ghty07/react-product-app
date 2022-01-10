@@ -11,7 +11,7 @@ const ShoppingListItem = (props) => {
     discount,
     bought,
   } = props;
-  
+
   let classNames = "list-group-item d-flex justify-content-between";
   if (discount) {
     classNames += " discount";

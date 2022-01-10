@@ -10,6 +10,7 @@ const ShoppingList = ({ data, onDelete, toggleBought, toggleDiscount }) => {
         price={item.price}
         id={item.id}
         discount={item.discount}
+        bought={item.bought}
         onDelete={() => onDelete(item.id)}
         toggleDiscount={toggleDiscount}
         toggleBought={toggleBought}

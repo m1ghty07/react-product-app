@@ -70,9 +70,20 @@ class App extends Component {
   };
 
   render() {
+    const total = this.state.data.length;
+    const withDiscount = this.state.data.filter((item) => item.discount).length;
+    let totalPrice = 0;
+    this.state.data.map((item) => {
+      return (totalPrice += +item.price);
+    });
+
     return (
       <div className="app">
-        <AppInfo />
+        <AppInfo
+          total={total}
+          withDiscount={withDiscount}
+          totalPrice={totalPrice}
+        />
 
         <div className="search-panel">
           <SearchPanel />
