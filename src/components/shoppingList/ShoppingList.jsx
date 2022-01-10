@@ -1,7 +1,7 @@
 import ShoppingListItem from "../shoppingListItem/ShoppingListItem";
 import "./ShoppingList.css";
 
-const ShoppingList = ({ data }) => {
+const ShoppingList = ({ data, onDelete }) => {
   const items = data.map((item) => {
     return (
       <ShoppingListItem
@@ -9,6 +9,7 @@ const ShoppingList = ({ data }) => {
         name={item.name}
         price={item.price}
         discount={item.discount}
+        onDelete={() => onDelete(item.id)}
       />
     );
   });

@@ -8,6 +8,7 @@ class ShoppingAddForm extends Component {
       name: "",
       price: "",
     };
+    this.maxId = 4;
   }
 
   onValueChange = (e) => {
@@ -15,12 +16,22 @@ class ShoppingAddForm extends Component {
       [e.target.name]: e.target.value,
     });
   };
+
+  onItemAdd = (e) => {
+    e.preventDefault();
+    this.props.onItemAdd(this.state.name, this.state.price);
+    this.setState({
+      name: "",
+      price: "",
+    });
+  };
+
   render() {
     const { name, price } = this.state;
     return (
       <div className="app-add-form">
         <h3>Add new product</h3>
-        <form className="add-form d-flex">
+        <form className="add-form d-flex" onSubmit={this.onItemAdd}>
           <input
             name="name"
             onChange={this.onValueChange}
