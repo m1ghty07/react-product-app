@@ -11,8 +11,31 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      data: [
+        {
+          name: "milk",
+          price: 4,
+          discount: false,
+          bought: false,
+          id: 1,
+        },
+        {
+          name: "fish",
+          price: 12,
+          discount: false,
+          bought: false,
+          id: 2,
+        },
+        {
+          name: "apples",
+          price: 5,
+          discount: false,
+          bought: false,
+          id: 3,
+        },
+      ],
       term: "",
+      filter: "",
     };
     this.maxId = 4;
   }
@@ -80,19 +103,35 @@ class App extends Component {
     });
   };
 
+  filterProducts = (items, filter) => {
+    switch (filter) {
+      case "discount":
+        return items.filter((item) => item.discount);
+      case "over":
+        return items.filter((item) => item.price > 10);
+      default:
+        return items;
+    }
+  };
+
   onUpdateSearch = (term) => {
     this.setState({ term });
   };
 
+  onUpdateFilter = (filter) => {
+    this.setState({ filter });
+  };
+
   render() {
-    const { data, term } = this.state;
+    const { data, term, filter } = this.state;
     const total = this.state.data.length;
     const withDiscount = this.state.data.filter((item) => item.discount).length;
     let totalPrice = 0;
     this.state.data.map((item) => {
       return (totalPrice += +item.price);
     });
-    const visibleData = this.searchProducts(data, term);
+    const filteredData = this.searchProducts(data, term);
+    const visibleData = this.filterProducts(filteredData, filter);
 
     return (
       <div className="app">
@@ -104,7 +143,7 @@ class App extends Component {
 
         <div className="search-panel">
           <SearchPanel onUpdateSearch={this.onUpdateSearch} />
-          <AppFilter />
+          <AppFilter onUpdateFilter={this.onUpdateFilter} />
         </div>
 
         <ShoppingList
