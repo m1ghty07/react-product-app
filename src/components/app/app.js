@@ -11,29 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [
-        {
-          name: "milk",
-          price: 4,
-          discount: false,
-          bought: false,
-          id: 1,
-        },
-        {
-          name: "fish",
-          price: 12,
-          discount: false,
-          bought: false,
-          id: 2,
-        },
-        {
-          name: "apples",
-          price: 5,
-          discount: false,
-          bought: false,
-          id: 3,
-        },
-      ],
+      data: [],
       term: "",
       filter: "",
     };
@@ -62,6 +40,16 @@ class App extends Component {
         data: newArr,
       };
     });
+  };
+
+  componentDidMount = () => {
+    this.setState({
+      data: JSON.parse(localStorage.getItem("products")),
+    });
+  };
+
+  componentDidUpdate = () => {
+    localStorage.setItem("products", JSON.stringify(this.state.data));
   };
 
   toggleDiscount = (id) => {
