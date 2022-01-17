@@ -41,7 +41,7 @@ class AppFilter extends Component {
           type="button"
           className="btn btn-outline-light"
         >
-          over 100$
+          over 10$
         </button>
       </div>
     );
